@@ -1,5 +1,12 @@
 import numpy
 
+import scipy
+
+from scipy.fftpack import fft
+
+from scipy.fftpack.realtransforms import dct
+
+
 eps = 0.00000001
 
 def stFeatureExtraction(signal, Fs, Win, Step):
@@ -42,7 +49,7 @@ def stFeatureExtraction(signal, Fs, Win, Step):
 	
 		countFrames += 1
 
-		x = signal(curPos:curPos + Win)
+		x = signal[curPos:curPos + Win]
 
 		curPos = curPos + Step
 
