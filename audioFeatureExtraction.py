@@ -59,7 +59,7 @@ def stFeatureExtraction(signal, Fs, Win, Step):
 		if countFrames == 1:
 	
 			stFeatures = curFV
-		else
+		else:
 			stFeatures = numpy.concatenate((stFeatures, curFV), 1)
 
 	return numpy.array(stFeatures)
