@@ -69,8 +69,11 @@ def stFeatureExtraction(signal, Fs, Win, Step):
 		else:
 			stFeatures = numpy.concatenate((stFeatures, curFV), 1)
 
+<<<<<<< HEAD
 	stFeatures = numpy.mean(stFeatures, axis = 1)
 
+=======
+>>>>>>> b92c928ed529d9639cdade871b560b91f74ed974
 	return numpy.array(stFeatures)
 
 
