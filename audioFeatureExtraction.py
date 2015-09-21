@@ -154,12 +154,12 @@ def stFeatureExtractionToFile(filename, win, step, outPutFile):
 
 	numpy.save(outPutFile, ceps)
 
-	numpy.savetxt(outPutFile + "*.csv", ceps.T, delimiter = ",")
+	numpy.savetxt(outPutFile + ".csv", ceps.T, delimiter = ",")
 
 	
 def stFeatureExtractionToFileDir(dirname, win, step):
 
-	types = (dirname + os.sep + '*.wav')
+	types = (dirname + os.sep + '*.wav',)
 
 	filesToProcess = []
 
