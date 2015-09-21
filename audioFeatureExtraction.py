@@ -1,3 +1,5 @@
+import os
+
 import numpy
 
 import scipy
@@ -6,6 +8,9 @@ from scipy.fftpack import fft
 
 from scipy.fftpack.realtransforms import dct
 
+import glob
+
+import readAudio as r
 
 eps = 0.00000001
 
@@ -69,11 +74,9 @@ def stFeatureExtraction(signal, Fs, Win, Step):
 		else:
 			stFeatures = numpy.concatenate((stFeatures, curFV), 1)
 
-<<<<<<< HEAD
+
 	stFeatures = numpy.mean(stFeatures, axis = 1)
 
-=======
->>>>>>> b92c928ed529d9639cdade871b560b91f74ed974
 	return numpy.array(stFeatures)
 
 
@@ -143,6 +146,32 @@ def stMFCC(X, fbank, nceps):
 	return ceps
 
 
+def stFeatureExtractionToFile(filename, win, step, outPutFile):
+
+	[Fs, X] = r.readAudio(filename)
+
+	ceps = stFeatureExtraction(X, Fs, win * Fs, step * Fs)
+
+	numpy.save(outPutFile, ceps)
+
+	numpy.savetxt(outPutFile + "*.csv", ceps.T, delimiter = ",")
+
+	
+def stFeatureExtractionToFileDir(dirname, win, step):
+
+	types = (dirname + os.sep + '*.wav')
+
+	filesToProcess = []
+
+	for files in types:
+		
+		filesToProcess.extend(glob.glob(files))
+
+	for f in filesToProcess:
+	
+		outPath = f
+
+		stFeatureExtractionToFile(f, win, step, outPath)
 	
 		
 
