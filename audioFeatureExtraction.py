@@ -159,6 +159,8 @@ def stFeatureExtractionToFile(filename, win, step, outPutFile):
 	
 def stFeatureExtractionToFileDir(dirname, win, step):
 
+	r.convertDirMp3ToWav(dirname)
+
 	types = (dirname + os.sep + '*.wav',)
 
 	filesToProcess = []
