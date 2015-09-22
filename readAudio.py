@@ -1,5 +1,37 @@
 import os
+
 import scipy.io.wavfile as wavfile
+
+import glob
+
+
+def convertDirMp3ToWav(dirName):
+
+	'''
+		This function converts MP3 files in a directory to WAV files
+	'''
+
+	#create a tuple of file types
+
+	types = (dirName + os.sep + '*.mp3',)
+
+	filesToProcess = []
+
+	for files in types:
+
+		filesToProcess.extend(glob.glob(files))
+
+	for f in filesToProcess:
+
+		wavFileName = f.replace(".mp3",".wav")
+
+		command = "avconv -i \"" + f + "\" \"" + wavFileName +"\"";
+
+		print command
+
+		os.system(command.decode('unicode_escape').encode('ascii','ignore').replace("\0",""))
+
+
 
 def readAudio(path):
 
