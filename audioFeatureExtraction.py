@@ -152,9 +152,9 @@ def stFeatureExtractionToFile(filename, win, step, outPutFile):
 
 	ceps = stFeatureExtraction(X, Fs, win * Fs, step * Fs)
 
-	numpy.save(outPutFile, ceps)
+	#numpy.save(outPutFile, ceps)
 
-	numpy.savetxt(outPutFile + ".csv", ceps.T, delimiter = ",")
+	#numpy.savetxt(outPutFile + ".csv", ceps.T, delimiter = ",")
 	
 	return ceps
 	
