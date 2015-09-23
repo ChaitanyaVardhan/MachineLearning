@@ -12,6 +12,10 @@ def convertDirMp3ToWav(dirName):
 	'''
 
 	#create a tuple of file types
+	
+	fs = 44100
+
+	nC = 1
 
 	types = (dirName + os.sep + '*.mp3',)
 
@@ -25,7 +29,7 @@ def convertDirMp3ToWav(dirName):
 
 		wavFileName = f.replace(".mp3",".wav")
 
-		command = "avconv -i \"" + f + "\" \"" + wavFileName +"\"";
+		command = "avconv -i \"" + f + "\" -ar " + str(fs) +" -ac " + str(nC) +" \"" + wavFileName +"\"";
 
 		print command
 
