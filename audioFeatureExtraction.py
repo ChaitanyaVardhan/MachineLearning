@@ -152,10 +152,6 @@ def stFeatureExtractionToFile(filename, win, step, outPutFile):
 
 	ceps = stFeatureExtraction(X, Fs, win * Fs, step * Fs)
 
-	#numpy.save(outPutFile, ceps)
-
-	#numpy.savetxt(outPutFile + ".csv", ceps.T, delimiter = ",")
-	
 	return ceps
 	
 def stFeatureExtractionToFileDir(dirname, win, step):
@@ -169,18 +165,22 @@ def stFeatureExtractionToFileDir(dirname, win, step):
 	for files in types:
 		
 		filesToProcess.extend(glob.glob(files))
+
+	filesToProcess = sorted(filesToProcess)
 	
 	count = 0
 
 	featureMatrix = numpy.array([], dtype=numpy.float64)
 
 	for f in filesToProcess:
-	
+		
 		count += 1
 
 		outPath = f
 
 		ceps = stFeatureExtractionToFile(f, win, step, outPath)
+
+		print ('file name is %s' %f)
 
 		if (count == 1):
 	
@@ -192,7 +192,8 @@ def stFeatureExtractionToFileDir(dirname, win, step):
 	
 	print  count
 	
-	numpy.savetxt("FeatureMatirx" + ".csv", featureMatrix.T, delimiter = ",")
+	numpy.savetxt("FeatureMatrix" + ".csv", featureMatrix.T, delimiter = ",")
+
 
 			
 
