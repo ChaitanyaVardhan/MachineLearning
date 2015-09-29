@@ -67,16 +67,16 @@ def stFeatureExtraction(signal, Fs, Win, Step):
 		curFV = numpy.zeros((nceps, 1))
 
 		curFV[0:nceps,0] = stMFCC(X, fbank, nceps).copy()
-
+				
 		if countFrames == 1:
 	
 			stFeatures = curFV
 		else:
 			stFeatures = numpy.concatenate((stFeatures, curFV), 1)
-
-
+		
+	
 	stFeatures = numpy.mean(stFeatures, axis = 1)
-
+	
 	return numpy.array(stFeatures)
 
 
@@ -142,7 +142,7 @@ def stMFCC(X, fbank, nceps):
 	mspec = numpy.log10(numpy.dot(X, fbank.T)+eps)
 	
 	ceps = dct(mspec, type = 2, norm = 'ortho', axis = -1)[:nceps]
-
+	
 	return ceps
 
 
@@ -168,8 +168,10 @@ def stFeatureExtractionToFileDir(dirname, win, step):
 
 	filesToProcess = sorted(filesToProcess)
 	
-	count = 0
+	print filesToProcess
 
+	count = 0
+	
 	featureMatrix = numpy.array([], dtype=numpy.float64)
 
 	for f in filesToProcess:
@@ -177,22 +179,22 @@ def stFeatureExtractionToFileDir(dirname, win, step):
 		count += 1
 
 		outPath = f
+		
+		ceps = numpy.zeros((1,13))
 
-		ceps = stFeatureExtractionToFile(f, win, step, outPath)
-
-		print ('file name is %s' %f)
-
+		ceps[0,0:13] = stFeatureExtractionToFile(f, win, step, outPath).copy()
+				
 		if (count == 1):
 	
 			featureMatrix = ceps
 
-		else:
-			featureMatrix = numpy.concatenate((featureMatrix, ceps), 1)
 
-	
+		else:
+			featureMatrix = numpy.concatenate((featureMatrix, ceps), 0)
+
 	print  count
 	
-	numpy.savetxt("FeatureMatrix" + ".csv", featureMatrix.T, delimiter = ",")
+	numpy.savetxt("FeatureMatrix" + ".csv", featureMatrix, delimiter = ",")
 
 
 			
